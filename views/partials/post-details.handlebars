@@ -13,7 +13,9 @@
             <p class="mb-0">@{{pet.username}}</p>
           </div>
         </div>
-        <button class="btn btn-outline-primary" id="likeButton{{id}}" data-id="{{id}}" data-likes="{{likes}}" data-liked="false">❤️ Likes: {{likes}}</button>
+      <button class="btn btn-outline-primary like-button" id="likeButton{{id}}" data-id="{{id}}" data-likes="{{likes}}" data-liked="false">
+        <i class="far fa-heart"></i> <span class="like-count">{{likes}}</span>
+      </button>
       </div>
 
       <!-- post -->
@@ -25,9 +27,9 @@
       <div class="input-group mt-4">
         <input class="form-control" id="commentInput{{id}}" type="text" placeholder="Add your comment">
         <div class="input-group-append">
-          <button class="btn btn-primary" id="comment-btn{{id}}" data-id="{{id}}">
-            <i class="fas fa-paper-plane"></i> 
-          </button>
+<button class="btn btn-primary commentButton" id="comment-btn{{id}}" data-id="{{id}}">
+  <i class="fas fa-paper-plane"></i>
+</button>
         </div>
       </div>
     </div>
