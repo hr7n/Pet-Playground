@@ -1,33 +1,23 @@
 const likeHandler = async (event) => {
-  //event.preventDefault();
-  const likeBtn = event.target;
-  const likeDisplay = likeBtn.parentElement.lastElementChild;
-  let { id, likes: likeCount } = event.target.dataset;
-  console.log('like buttons?');
-  //   this is if the comment is unliked currently then a click will like and update like
-  if (likeBtn.getAttribute('data-liked') === 'false') {
-    likeCount++;
-    likeBtn.classList.add('btn-dark;');
-    likeBtn.setAttribute('data-liked', 'true');
-  } else {
-    likeCount--;
-    likeBtn.classList.add('btn-dark');
-    likeBtn.setAttribute('data-liked', 'false');
-    // ...
-  }
+  const likeBtn = event.target.closest('.like-button');
+  const icon = likeBtn.querySelector('i');
+  const likeCountSpan = likeBtn.querySelector('.like-count');
+  let { id, likes: likeCount } = likeBtn.dataset;
+
+  const liked = likeBtn.getAttribute('data-liked') === 'true';
+  likeCount = parseInt(likeCount, 10) + (liked ? -1 : 1);
 
   const response = await fetch(`/api/pet-post/${id}`, {
     method: 'PUT',
-    body: JSON.stringify({
-      likes: likeCount,
-    }),
+    body: JSON.stringify({ likes: likeCount }),
     headers: { 'Content-Type': 'application/json' },
   });
 
-  //fetch to update db if success then
   if (response.ok) {
     likeBtn.setAttribute('data-likes', likeCount);
-    likeDisplay.textContent = '❤️ Likes: ' + likeCount;
+    likeBtn.setAttribute('data-liked', !liked);
+    likeCountSpan.textContent = likeCount;
+    icon.classList.add(liked ? 'far fa-heart' : 'fas fa-heart');
   } else {
     alert('Failed to like post');
   }
@@ -35,7 +25,7 @@ const likeHandler = async (event) => {
 
 document.addEventListener('DOMContentLoaded', () => {
   document.body.addEventListener('click', function (event) {
-    if (event.target.matches('.like-button')) {
+    if (event.target.matches('.like-button, .like-button *')) {
       likeHandler(event);
     }
   });
