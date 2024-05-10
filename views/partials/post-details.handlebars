@@ -1,5 +1,5 @@
 <div class="container mx-auto" style="max-width: 500px;">
-  <div class="card my-4">
+  <div class="card my-4 bg-light shadow-lg">
     <!-- image for post -->
     <img src="{{picture}}" class="card-img-top" alt="Post image" style="width: 100%; height: auto; aspect-ratio: 1 / 1; object-fit: cover;">
 
@@ -27,7 +27,7 @@
       <div class="input-group mt-4">
         <input class="form-control" id="commentInput{{id}}" type="text" placeholder="Add your comment">
         <div class="input-group-append">
-<button class="btn btn-primary commentButton" id="comment-btn{{id}}" data-id="{{id}}">
+<button class="btn btn-dark commentButton mx-1" id="comment-btn{{id}}" data-id="{{id}}">
   <i class="fas fa-paper-plane"></i>
 </button>
         </div>
@@ -37,7 +37,7 @@
     <!-- comment section -->
     <ul class="list-group list-group-flush" id="commentList{{id}}">
       {{#each comments as |comment|}}
-      <li class="list-group-item">
+      <li class="list-group-item bg-light">
         <strong>{{comment.pet.username}}:</strong> {{comment.comment}}
       </li>
       {{/each}}
