@@ -1,24 +1,24 @@
-const router = require("express").Router();
-const { Post, Pet } = require("../../models");
-const withAuth = require("../../utils/auth");
-const { uploadPosts } = require("../../multerSetup");
+const router = require('express').Router();
+const { Post, Pet } = require('../../models');
+const withAuth = require('../../utils/auth');
+const { uploadPosts } = require('../../multerSetup');
 
 //api/pet-post/
 
 //Create Post
 //POST //api/pet-post/
-router.post("/", uploadPosts.single("image"), withAuth, async (req, res) => {
+router.post('/', uploadPosts.single('image'), withAuth, async (req, res) => {
   try {
-    const imagePath = "/images/uploads/" + req.file.filename;
+    const imagePath = '/images/uploads/' + req.file.filename;
 
     const postData = await Post.create({
-      title: req.body.title,
+      // title: req.body.title,
       caption: req.body.caption,
       picture: imagePath,
       pet_id: req.session.petId,
     });
-    console.log("Pet ID", req.session.petId);
-    console.log("User ID", req.session.userId);
+    console.log('Pet ID', req.session.petId);
+    console.log('User ID', req.session.userId);
     const pet = await Pet.findByPk(postData.pet_id);
     console.log(postData.pet_id);
     const petUserName = pet.username;
@@ -31,7 +31,7 @@ router.post("/", uploadPosts.single("image"), withAuth, async (req, res) => {
 });
 
 //GET //api/pet-post/
-router.get("/", withAuth, async (req, res) => {
+router.get('/', withAuth, async (req, res) => {
   try {
     const postData = await Post.findAll({});
 
@@ -45,7 +45,7 @@ router.get("/", withAuth, async (req, res) => {
 });
 
 //DELETE //api/pet-post/id
-router.delete("/:id", withAuth, async (req, res) => {
+router.delete('/:id', withAuth, async (req, res) => {
   try {
     const post = Post.destroy({
       where: {
@@ -60,7 +60,7 @@ router.delete("/:id", withAuth, async (req, res) => {
 });
 
 //PUT //api/pet-post/id
-router.put("/:id", withAuth, async (req, res) => {
+router.put('/:id', withAuth, async (req, res) => {
   try {
     const post = Post.update(req.body, {
       where: { id: req.params.id },
@@ -73,7 +73,7 @@ router.put("/:id", withAuth, async (req, res) => {
 });
 
 //GET /api/pet-post/id
-router.get("/:id", withAuth, async (req, res) => {
+router.get('/:id', withAuth, async (req, res) => {
   try {
     const postData = await Post.findAll({
       where: {
