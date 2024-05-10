@@ -10,21 +10,33 @@ AWS.config.update({
 
 const s3 = new AWS.S3();
 
-const storagePosts = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, './public/images/uploads/');
+const storagePosts = multerS3({
+  s3: s3,
+  bucket: process.env.S3_BUCKET,
+  acl: 'public-read',
+  metadata: function (req, file, cb) {
+    cb(null, { fieldName: file.fieldname });
   },
-  filename: function (req, file, cb) {
-    cb(null, file.originalname);
+  key: function (req, file, cb) {
+    cb(null, `posts/${Date.now().toString()}-${file.originalname}`);
   },
+  // destination: function (req, file, cb) {
+  //   cb(null, './public/images/uploads/');
+  // },
+  // filename: function (req, file, cb) {
+  //   cb(null, file.originalname);
+  // },
 });
 
-const storagePets = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, './public/images/pet_pics/');
+const storagePets = multerS3({
+  s3: s3,
+  bucket: process.env.S3_BUCKET,
+  acl: 'public-read',
+  metadata: function (req, file, cb) {
+    cb(null, { fieldName: file.fieldname });
   },
-  filename: function (req, file, cb) {
-    cb(null, file.originalname);
+  key: function (req, file, cb) {
+    cb(null, `pets/${Date.now().toString()}-${file.originalname}`);
   },
 });
 
