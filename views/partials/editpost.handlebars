@@ -1,19 +1,19 @@
-<form id="newPostForm">
-    <h2 style="text-align: center;"><strong>Update your post!</strong></h2>
-<div class="field">
-  <label class="label">Title</label>
-  <div class="control">
-    <input id="title{{id}}" class="input" type="text" placeholder="Title" value="{{title}}">
-  </div>
+<form id="newPostForm" class="p-4">
+    <h2 class="text-center mb-4">update your post!</h2>
+<div class="form-group mt-3 mb-2">
+  <label class="label">caption</label>
+   <input
+      type="text"
+      class="form-control"
+      id="caption{{id}}"
+      name="caption"
+      placeholder="Caption"
+      value="{{caption}}"
+      required
+    />
+    <div class="invalid-feedback">Please provide a caption.</div>
 </div>
-<div class="field">
-  <label class="label">Caption</label>
-  <div class="control">
-      <input id="caption{{id}}" class="input" type="text" placeholder="Caption" value="{{caption}}">
-  </div>
-</div>
- <div class="control">
-    <button action="submit"  class="button editSubmitBtn is-link" data-postId={{id}}>Update</button>
-  </div>
+    <button type="submit"  class="btn btn-dark mt-3 editSubmitBtn" data-postId={{id}}>Update</button>
+
 </form>
   <script src="/js/editPost.js"></script>
