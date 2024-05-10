@@ -3,37 +3,38 @@
   action="/api/pet-post/"
   method="POST"
   enctype="multipart/form-data"
-  class="needs-validation" novalidate
+  class="needs-validation p-4" novalidate
 >
-  <h2 class="text-center mb-4"><strong>Create A New Post</strong></h2>
+  <h2 class="text-center mb-4">create a new post.</h2>
   
   <div class="form-group">
-    <label for="pet-pic">Upload your picture!</label>
+    <label for="pet-pic" class="">upload your picture!</label>
     <div class="custom-file">
       <input
         type="file"
-        class="custom-file-input"
+        class="form-control text-lowercase"
         id="pet-pic"
         name="image"
         accept="image/png, image/jpeg"
         required
       />
-      <div class="invalid-feedback">Please upload a picture.</div>
+      <div class="invalid-feedback">please upload a picture.</div>
     </div>
   </div>
 
-  <div class="form-group">
-    <label for="caption">Caption</label>
+  <div class="form-group mt-3 mb-2">
+    <label for="caption">caption</label>
     <input
       type="text"
       class="form-control"
       id="caption"
       name="caption"
-      placeholder="Caption"
+      placeholder='"went to the park today!"'
       required
     />
-    <div class="invalid-feedback">Please provide a caption.</div>
+    <div class="invalid-feedback">please provide a caption.</div>
   </div>
 
-  <button type="submit" class="btn btn-primary">Submit</button>
+  <button type="submit" class="btn btn-dark mt-3">submit.</button>
 </form>
+
