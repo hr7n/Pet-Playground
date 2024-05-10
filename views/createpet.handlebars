@@ -1,123 +1,113 @@
-<h2>We're so excited to welcome your pet to our community! Please tell us a bit
-  about them!</h2>
+<h2 class="text-center my-4 mx-4 fs-3">welcome to the playground!<br /><p class="fs-5 my-4">please fill out some information about your pet.</p></h2>
 <form
   id="pet-submit"
   action="/api/pets/"
   method="POST"
   enctype="multipart/form-data"
+  class="container mt-5 w-75"
 >
-  <div class="field">
-    <label class="label">Pet Name: </label>
-    <div class="control">
-      <input
-        id="name"
-        name="name"
-        class="input"
-        type="text"
-        placeholder="Name"
-      />
-    </div>
+  <div class="mb-3">
+    <label for="name" class="form-label">Pet Name:</label>
+    <input
+      id="name"
+      name="name"
+      class="form-control"
+      type="text"
+      placeholder="Name"
+    />
   </div>
 
-  <div class="field">
-    <label class="label">Username: </label>
-    <div class="control has-icons-left has-icons-right">
+  <div class="mb-3">
+    <label for="username" class="form-label">Username:</label>
+    <div class="input-group">
+      <span class="input-group-text"><i class="fas fa-user"></i></span>
       <input
         id="username"
         name="username"
-        class="input is-success"
+        class="form-control"
         type="text"
         placeholder="Username"
       />
-      <span class="icon is-small is-left">
-        <i class="fas fa-user"></i>
-      </span>
-      <span class="icon is-small is-right">
-        <i class="fas fa-check"></i>
-      </span>
+      <span class="input-group-text"><i class="fas fa-check"></i></span>
     </div>
-    <p class="help is-success">This username is available</p>
+    <div class="form-text">This username is available</div>
   </div>
 
-  <div class="field is-grouped">
-    <label class="label">Gender: </label>
-    <div class="control">
-      <div class="select">
-        <select id="gender" name="gender">
-          <option>Male</option>
-          <option>Female</option>
-        </select>
-      </div>
-    </div>
-    <label class="label">Birthdate: </label>
-    <div class="control">
-      <input
-        id="birthday"
-        name="birthday"
-        class="input"
-        type="date"
-        placeholder="1/1/2001"
-      />
-    </div>
-    <label class="label">Pet Type: </label>
-    <div class="control">
-      <input
-        id="pet-type"
-        name="pet_type"
-        class="input"
-        type="text"
-        placeholder="ie: cat or dog"
-      />
-    </div>
+  <div class="mb-3">
+    <label for="gender" class="form-label">Gender:</label>
+    <select id="gender" name="gender" class="form-select">
+      <option>Male</option>
+      <option>Female</option>
+    </select>
   </div>
 
-  <div class="field is-grouped">
-    <label class="label">Favorite Food: </label>
-    <div class="control">
-      <input
-        id="favorite-food"
-        name="favorite_food"
-        class="input"
-        type="text"
-        placeholder="spaghetti"
-      />
-    </div>
-    <label class="label">Favorite Toy: </label>
-    <div class="control">
-      <input
-        id="favorite-toy"
-        name="favorite_toy"
-        class="input"
-        type="text"
-        placeholder="tennis ball"
-      />
-    </div>
+  <div class="mb-3">
+    <label for="birthday" class="form-label">Birthdate:</label>
+    <input
+      id="birthday"
+      name="birthday"
+      class="form-control"
+      type="date"
+      placeholder="1/1/2001"
+    />
   </div>
-  <div class="field">
-    <label class="label">Add a bio for your pet!</label>
-    <div class="control">
-      <textarea
-        id="bio"
-        name="bio"
-        class="textarea"
-        placeholder="Hi, my name is Cherry. I'm a 7 year old cat..."
-      ></textarea>
-    </div>
+
+  <div class="mb-3">
+    <label for="pet-type" class="form-label">Pet Type:</label>
+    <input
+      id="pet-type"
+      name="pet_type"
+      class="form-control"
+      type="text"
+      placeholder="ie: cat or dog"
+    />
   </div>
-  <div class="field">
-    <label class="label">Upload a profile picture</label>
-    <div class="control">
-      <input
-        id="pet-pic"
-        class="input"
-        type="file"
-        name="pet_pic"
-        accept="image/png, image/jpeg"
-      />
-    </div>
+
+  <div class="mb-3">
+    <label for="favorite-food" class="form-label">Favorite Food:</label>
+    <input
+      id="favorite-food"
+      name="favorite_food"
+      class="form-control"
+      type="text"
+      placeholder="spaghetti"
+    />
   </div>
-  <div class="control">
-    <button action="submit" class="button is-link">Submit</button>
+
+  <div class="mb-3">
+    <label for="favorite-toy" class="form-label">Favorite Toy:</label>
+    <input
+      id="favorite-toy"
+      name="favorite_toy"
+      class="form-control"
+      type="text"
+      placeholder="tennis ball"
+    />
+  </div>
+
+  <div class="mb-3">
+    <label for="bio" class="form-label">Add a bio for your pet!</label>
+    <textarea
+      id="bio"
+      name="bio"
+      class="form-control"
+      placeholder="Hi, my name is Cherry. I'm a 7 year old cat..."
+    ></textarea>
+  </div>
+
+  <div class="mb-3">
+    <label for="pet-pic" class="form-label">Upload a profile picture</label>
+    <input
+      id="pet-pic"
+      class="form-control"
+      type="file"
+      name="pet_pic"
+      accept="image/png, image/jpeg"
+    />
+  </div>
+
+  <div class="d-grid">
+    <button type="submit" class="btn btn-dark">Submit</button>
   </div>
 </form>
 <script src="/js/createPet.js"></script>
