@@ -15,8 +15,7 @@
   },
   "scripts": {
     "start": "node server.js",
-    "dev": "nodemon server",
-    "build": "node server.js"
+    "dev": "nodemon server"
   },
   "name": "pet-playground",
   "version": "1.0.0",
