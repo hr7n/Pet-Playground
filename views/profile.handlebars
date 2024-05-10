@@ -1,46 +1,49 @@
-<div class="container">
+<div class="container my-4">
   <div class="row">
-    <!-- Sidebar for Pets and New Post Button -->
     <div class="col-md-3">
-      <div class="mb-3">
-        <h5 class="mb-2">Current Pets</h5>
-        <ul class="list-group">
+      <div class="">
+        <div class="row mb-3">
+          <div class="col-12">
+            <a href="/createpet" class="btn btn-md btn-dark w-100">add new pet.</a>
+          </div>
+          <div class="col-12">
+            <button onclick="showNewPost()" class="btn btn-md btn-dark w-100">new post.</button>
+          </div>
+        </div>
+      </div>
+        <h5 class="mb-2" style="letter-spacing: -1">current pets</h5>
+        <ul class="list-group mb-3">
           {{#each pets as |pet|}}
-          <li class="list-group-item">
+          <li class="list-group-item" style="letter-spacing: -1">
             <a href="/profile/{{username}}" class="text-secondary">{{name}}</a>
           </li>
           {{/each}}
         </ul>
-        <a href="/createpet" class="btn btn-primary mt-3">Add New Pet</a>
-      </div>
-      <button onclick="showNewPost()" class="btn btn-primary">New Post</button>
     </div>
 
-    <!-- Main Profile Content -->
     <div class="col-md-9">
-      <div class="card mb-3">
+      <div class="card mb-3 bg-light shadow-md">
         <div class="card-body">
           <div class="d-flex justify-content-between">
             <div class="d-flex align-items-center">
               <img src="{{currentPet.pet_pic}}" alt="Profile picture" class="rounded-circle mr-3" style="width: 64px; height: 64px;">
               <div>
-                <h4 class="card-title">{{currentPet.name}}, {{calculateBday currentPet.birthday}}</h4>
+                <h4 class="card-title" style="letter-spacing: -1">{{currentPet.name}}, {{calculateBday currentPet.birthday}}</h4>
                 <h6 class="card-subtitle mb-2 text-muted">@{{currentPet.username}}</h6>
               </div>
             </div>
-            <button onclick="editPetForm()" id='editPet'class="btn btn-dark btn-sm" style="margin-left: auto; height: 35px;">Edit Pet</button>
+            <button onclick="editPetForm()" id='editPet'class="btn btn-dark btn-sm" style="margin-left: auto; height: 35px;">edit pet.</button>
           </div>
           <p class="card-text">{{currentPet.bio}}</p>
-          <p class="card-text"><strong>Favorite Food:</strong> {{currentPet.favorite_food}}</p>
-          <p class="card-text"><strong>Favorite Toy:</strong> {{currentPet.favorite_toy}}</p>
+          <p class="card-text"><strong>favorite food:</strong> {{currentPet.favorite_food}}</p>
+          <p class="card-text"><strong>favorite toy:</strong> {{currentPet.favorite_toy}}</p>
         </div>
         <div id="editPetEl" style="display: none;">{{>editpet}}</div>
-        <div class='card' id="newPostEl" style="display: none;">
+        <div class='card bg-light shadow-md' id="newPostEl" style="display: none;">
           {{> newpost}}
         </div>
       </div>
 
-      <!-- Posts Section -->
       <section>
         {{#each posts as |post|}}
         <div class="card mb-3">
@@ -52,7 +55,7 @@
             <div class="col-md-8">
               <div class="card-body">
                 <p class="card-text">{{post.caption}}</p>
-                <button class="btn btn-danger float-right delete-button" data-id="{{id}}">Delete</button>
+                <button class="btn btn-secondary float-right delete-button" data-id="{{id}}">Delete</button>
                 <button class="btn edit btn-secondary float-right mr-2 edit-button" data-buttonid="{{id}}">Edit</button>
                 <div id="editPost{{id}}" style="display: none;">{{>editpost}}</div>
               </div>
