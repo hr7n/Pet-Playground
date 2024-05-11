@@ -9,8 +9,8 @@ const { uploadPosts } = require('../../multerSetup');
 //POST //api/pet-post/
 router.post('/', uploadPosts.single('image'), withAuth, async (req, res) => {
   try {
-    const imagePath = '/images/uploads/' + req.file.filename;
-
+    // const imagePath = '/images/uploads/' + req.file.filename;
+    const imagePath = req.file.location;
     const postData = await Post.create({
       // title: req.body.title,
       caption: req.body.caption,
