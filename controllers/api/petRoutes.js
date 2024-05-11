@@ -1,14 +1,15 @@
-const router = require("express").Router();
-const { Pet } = require("../../models");
-const withAuth = require("../../utils/auth");
-const { uploadPets } = require("../../multerSetup");
+const router = require('express').Router();
+const { Pet } = require('../../models');
+const withAuth = require('../../utils/auth');
+const { uploadPets } = require('../../multerSetup');
 
 //POST /api/pets/
-router.post("/", uploadPets.single("pet_pic"), withAuth, async (req, res) => {
+router.post('/', uploadPets.single('pet_pic'), withAuth, async (req, res) => {
   try {
-    console.log("req.file", req.file);
-    console.log("req.body", req.body);
-    const pet_picPath = "/images/pet_pics/" + req.file.filename;
+    console.log('req.file', req.file);
+    console.log('req.body', req.body);
+    // const pet_picPath = "/images/pet_pics/" + req.file.filename;
+    const pet_picPath = req.file.location;
 
     const petData = await Pet.create({
       bio: req.body.bio,
@@ -31,7 +32,7 @@ router.post("/", uploadPets.single("pet_pic"), withAuth, async (req, res) => {
 });
 
 //GET /api/pets/
-router.get("/", withAuth, async (req, res) => {
+router.get('/', withAuth, async (req, res) => {
   try {
     const petData = await Pet.findAll({});
 
@@ -45,7 +46,7 @@ router.get("/", withAuth, async (req, res) => {
 });
 
 ///DELETE /api/pets/id
-router.delete("/:id", withAuth, async (req, res) => {
+router.delete('/:id', withAuth, async (req, res) => {
   try {
     const pet = Pet.destroy({
       where: {
@@ -60,7 +61,7 @@ router.delete("/:id", withAuth, async (req, res) => {
 });
 
 //POST /api/pets/id
-router.put("/:id", withAuth, async (req, res) => {
+router.put('/:id', withAuth, async (req, res) => {
   try {
     const pet = Pet.update(req.body, {
       where: { id: req.params.id },
@@ -73,7 +74,7 @@ router.put("/:id", withAuth, async (req, res) => {
 });
 
 //GET /api/pets/
-router.get("/:id", withAuth, async (req, res) => {
+router.get('/:id', withAuth, async (req, res) => {
   try {
     const petData = await Pet.findAll({
       where: {
