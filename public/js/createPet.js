@@ -1,21 +1,22 @@
 const createPetFormHandler = async (event) => {
   event.preventDefault();
 
-  const form = document.querySelector("#pet-submit");
+  const form = document.querySelector('#pet-submit');
   const formData = new FormData(form);
   console.log(formData);
-  const response = await fetch("/api/pets/", {
-    method: "POST",
+  const response = await fetch('/api/pets/', {
+    method: 'POST',
     body: formData,
   });
 
   if (response.ok) {
-    document.location.replace(`/profile/${formData.get("username")}`);
+    document.location.replace(`/profile/${formData.get('username')}`);
   } else {
-    alert("Failed to Create New Pet");
+    alert('Failed to Create New Pet');
+    console.log(response.json);
   }
 };
 
 document
-  .querySelector("#pet-submit")
-  .addEventListener("submit", createPetFormHandler);
+  .querySelector('#pet-submit')
+  .addEventListener('submit', createPetFormHandler);
