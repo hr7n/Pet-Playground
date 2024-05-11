@@ -13,7 +13,7 @@ const createPetFormHandler = async (event) => {
     document.location.replace(`/profile/${formData.get('username')}`);
   } else {
     alert('Failed to Create New Pet');
-    console.log(response.json);
+    // console.log(response.json);
   }
 };
 

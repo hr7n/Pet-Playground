@@ -8,8 +8,7 @@ router.post('/', uploadPets.single('pet_pic'), withAuth, async (req, res) => {
   try {
     console.log('req.file', req.file);
     console.log('req.body', req.body);
-    // const pet_picPath = "/images/pet_pics/" + req.file.filename;
-    const pet_picPath = req.file.location;
+    const pet_picPath = req.file.path;
 
     const petData = await Pet.create({
       bio: req.body.bio,

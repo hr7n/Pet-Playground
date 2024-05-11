@@ -1,46 +1,48 @@
-const AWS = require('aws-sdk');
+const cloudinary = require('cloudinary');
+const { CloudinaryStorage } = require('multer-storage-cloudinary');
 const multer = require('multer');
-const multerS3 = require('multer-s3');
 
-AWS.config.update({
-  accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-  region: process.env.AWS_REGION,
+// cloudinary config
+cloudinary.config({
+  cloudinary_url: process.env.CLOUDINARY_URL,
 });
 
-const s3 = new AWS.S3();
-
-const storagePosts = multerS3({
-  s3: s3,
-  bucket: process.env.S3_BUCKET,
-  acl: 'public-read',
-  contentType: multerS3.AUTO_CONTENT_TYPE,
-  metadata: function (req, file, cb) {
-    cb(null, { fieldName: file.fieldname });
-  },
-  key: function (req, file, cb) {
-    cb(null, `posts/${Date.now().toString()}-${file.originalname}`);
-  },
-  // destination: function (req, file, cb) {
-  //   cb(null, './public/images/uploads/');
-  // },
-  // filename: function (req, file, cb) {
-  //   cb(null, file.originalname);
-  // },
-});
-
-const storagePets = multerS3({
-  s3: s3,
-  bucket: process.env.S3_BUCKET,
-  acl: 'public-read',
-  contentType: multerS3.AUTO_CONTENT_TYPE,
-  metadata: function (req, file, cb) {
-    cb(null, { fieldName: file.fieldname });
-  },
-  key: function (req, file, cb) {
-    cb(null, `pets/${Date.now().toString()}-${file.originalname}`);
+// posts
+const storagePosts = new CloudinaryStorage({
+  cloudinary: cloudinary,
+  params: {
+    folder: 'posts',
+    allowedFormats: ['jpeg', 'png', 'jpg'],
+    public_id: (req, file) => file.originalname,
   },
 });
+// const storagePosts = multer.diskStorage({
+//   destination: function (req, file, cb) {
+//     cb(null, './public/images/uploads/');
+//   },
+//   filename: function (req, file, cb) {
+//     cb(null, file.originalname);
+//   },
+// });
+
+// pets
+const storagePets = new CloudinaryStorage({
+  cloudinary: cloudinary,
+  params: {
+    folder: 'pets',
+    allowedFormats: ['jpeg', 'png', 'jpg'],
+    public_id: (req, file) => file.originalname,
+  },
+});
+
+// const storagePets = multer.diskStorage({
+//   destination: function (req, file, cb) {
+//     cb(null, './public/images/pet_pics/');
+//   },
+//   filename: function (req, file, cb) {
+//     cb(null, file.originalname);
+//   },
+// });
 
 const uploadPosts = multer({ storage: storagePosts });
 const uploadPets = multer({ storage: storagePets });
