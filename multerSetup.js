@@ -14,6 +14,7 @@ const storagePosts = multerS3({
   s3: s3,
   bucket: process.env.S3_BUCKET,
   acl: 'public-read',
+  contentType: multerS3.AUTO_CONTENT_TYPE,
   metadata: function (req, file, cb) {
     cb(null, { fieldName: file.fieldname });
   },
@@ -32,6 +33,7 @@ const storagePets = multerS3({
   s3: s3,
   bucket: process.env.S3_BUCKET,
   acl: 'public-read',
+  contentType: multerS3.AUTO_CONTENT_TYPE,
   metadata: function (req, file, cb) {
     cb(null, { fieldName: file.fieldname });
   },
