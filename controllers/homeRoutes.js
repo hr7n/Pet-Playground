@@ -1,11 +1,10 @@
-const router = require("express").Router();
-const { Post, User, Pet, Comment } = require("../models");
-const { Op } = require("sequelize");
-const withAuth = require("../utils/auth");
-const upload = require("../multerSetup");
+const router = require('express').Router();
+const { Post, User, Pet, Comment } = require('../models');
+const { Op } = require('sequelize');
+const withAuth = require('../utils/auth');
 
 //GET /
-router.get("/", withAuth, async (req, res) => {
+router.get('/', withAuth, async (req, res) => {
   try {
     const postData = await Post.findAll({
       include: [{ model: Pet }, { model: Comment, include: [{ model: Pet }] }],
@@ -13,7 +12,7 @@ router.get("/", withAuth, async (req, res) => {
 
     const posts = postData.map((post) => post.get({ plain: true }));
 
-    res.render("homepage", {
+    res.render('homepage', {
       posts,
       // Pass the logged in flag to the template
       loggedIn: req.session.loggedIn,
@@ -24,7 +23,7 @@ router.get("/", withAuth, async (req, res) => {
 });
 
 //Route for profile button to select random pet
-router.get("/profile", withAuth, async (req, res) => {
+router.get('/profile', withAuth, async (req, res) => {
   try {
     const petData = await Pet.findAll({
       where: {
@@ -34,7 +33,7 @@ router.get("/profile", withAuth, async (req, res) => {
 
     const pets = petData.map((pet) => pet.get({ plain: true }));
     const currentPet = pets[0];
-    res.redirect("profile/" + currentPet.username);
+    res.redirect('profile/' + currentPet.username);
   } catch (err) {
     res.status(500).json(err);
   }
@@ -42,9 +41,9 @@ router.get("/profile", withAuth, async (req, res) => {
 
 //Route for the pet profile pages
 // GET /profile/name
-router.get("/profile/:username", withAuth, async (req, res) => {
+router.get('/profile/:username', withAuth, async (req, res) => {
   try {
-    console.log("HERE===============================");
+    console.log('HERE===============================');
     const petData = await Pet.findAll({
       where: {
         user_id: req.session.userId,
@@ -60,14 +59,14 @@ router.get("/profile/:username", withAuth, async (req, res) => {
         pet_id: currentPet.id,
       },
     });
-    console.log("BEFORE: PET", currentPet.id);
+    console.log('BEFORE: PET', currentPet.id);
     req.session.save(() => {
       req.session.petId = currentPet.id;
 
-      console.log("AFTERR: PET", req.session.petId);
+      console.log('AFTERR: PET', req.session.petId);
       const posts = postData.map((post) => post.get({ plain: true }));
 
-      res.render("profile", {
+      res.render('profile', {
         posts,
         pets,
         currentPet,
@@ -81,20 +80,20 @@ router.get("/profile/:username", withAuth, async (req, res) => {
 });
 
 //GET /login
-router.get("/login", (req, res) => {
+router.get('/login', (req, res) => {
   // If a session exists, redirect the request to the homepage
   if (req.session.loggedIn) {
-    res.redirect("/");
+    res.redirect('/');
     return;
   }
 
-  res.render("login");
+  res.render('login');
 });
 
 //GET /createPet
-router.get("/createpet", withAuth, async (req, res) => {
+router.get('/createpet', withAuth, async (req, res) => {
   try {
-    res.render("createpet", { loggedIn: req.session.loggedIn });
+    res.render('createpet', { loggedIn: req.session.loggedIn });
   } catch (err) {
     res.status(500).json(err);
   }
