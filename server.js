@@ -1,28 +1,29 @@
 // DEPENDENCIES
-const express = require("express");
-const session = require("express-session");
-const path = require("path");
-const exphbs = require("express-handlebars");
-const routes = require("./controllers");
-const helpers = require("./utils/helpers");
+const express = require('express');
+const session = require('express-session');
+const path = require('path');
+const exphbs = require('express-handlebars');
+const routes = require('./controllers');
+const helpers = require('./utils/helpers');
+require('dotenv').config();
 
-const sequelize = require("./config/connection.js");
+const sequelize = require('./config/connection.js');
 
-const SequelizeStore = require("connect-session-sequelize")(session.Store);
+const SequelizeStore = require('connect-session-sequelize')(session.Store);
 
 // APP / PORT
 const app = express();
 const PORT = process.env.PORT || 3001;
 
 const hbs = exphbs.create({ helpers });
-app.set("trust proxy", 1);
+app.set('trust proxy', 1);
 const sess = {
-  secret: "Super secret secret",
+  secret: 'Super secret secret',
   cookie: {
     maxAge: 60 * 60 * 1000,
     httpOnly: true,
-    secure: process.env.NODE_ENV === "production" ? true : false,
-    sameSite: process.env.NODE_ENV === "production" ? "lax" : "strict",
+    secure: process.env.NODE_ENV === 'production' ? true : false,
+    sameSite: process.env.NODE_ENV === 'production' ? 'lax' : 'strict',
   },
   resave: false,
   saveUninitialized: true,
@@ -31,18 +32,18 @@ const sess = {
   }),
 };
 sess.store.sync();
-app.use("/images", express.static(path.join(__dirname, "/public/images")));
+app.use('/images', express.static(path.join(__dirname, '/public/images')));
 app.use(session(sess));
 
-app.engine("handlebars", hbs.engine);
-app.set("view engine", "handlebars");
+app.engine('handlebars', hbs.engine);
+app.set('view engine', 'handlebars');
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(routes);
 
 sequelize.sync({ force: false }).then(() => {
-  app.listen(PORT, () => console.log("Now listening"));
+  app.listen(PORT, () => console.log('Now listening'));
 });
